@@ -560,13 +560,55 @@
         // used instead of the current day.
         let date
 
-        if (this.min && this.min && ! this.value) {
-          date = new Date(this.min)
-        } else if (this.value && this.value) {
-          date = new Date(this.value)
-        } else {
-          date = new Date()
-        }
+        // if (this.min && this.min && ! this.value) {
+        //   date = new Date(this.min)
+        // } else if (this.value && this.value) {
+        //   date = new Date(this.value)
+        // } else {
+        //   date = new Date()
+        // }
+          //changed code
+          //if we provide value of date than the value date is selected
+          //for max and min (without value) min selected if current date in this range than current date selected
+          //for max max selected
+          //for min min selected
+
+          let currentDate=new Date();
+          let maxDate,minDate;
+          if(this.value){
+              date = new Date(this.value)
+          }
+          else if(this.max && this.min  ){
+              maxDate=new Date(this.max)
+              minDate= new Date(this.min)
+              if(currentDate <= maxDate && currentDate >= minDate){
+                  date=currentDate;
+              }
+              else{
+                  date= minDate
+              }
+          }
+          else if(this.max){
+              maxDate=new Date(this.max)
+              if(currentDate <= maxDate){
+                  date= currentDate
+              }
+              else{
+                  date= maxDate
+              }
+          }
+          else if(this.min){
+              minDate=new Date(this.min)
+              if(currentDate >= minDate){
+                  date= currentDate
+              }
+              else{
+                  date= minDate
+              }
+          }
+          else{
+              date=currentDate;
+          }
 
         if (this.initialDate) {
           // this.selectedDay = date.getDate() + 1
