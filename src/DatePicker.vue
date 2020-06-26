@@ -100,6 +100,8 @@
         </div>
 
         <div class="calendar-footer" v-if="! footer">
+          <button :style="{ 'color': color }" @click.stop.prevent="clearDate">Clear Date</button>
+
           <button :style="{ 'color': color }" @click.stop.prevent="onClose">Cancel</button>
 
           <button :style="{ 'color': color }" @click.stop.prevent="onInput">Ok</button>
@@ -429,7 +431,7 @@
 
         if (this.min) {
           firstYear = this.minDate.getFullYear()
-        } 
+        }
         else{
           firstYear = 2000
         }
@@ -438,7 +440,7 @@
         // } else {
         //   firstYear = (new Date).getFullYear()
         // }
-        
+
         // Create a range of years to loop through which is either the maximum
         // date minus the first year, or simply 100.
         let through = this.max ? (this.maxDate.getFullYear() + 1) - firstYear : 101
@@ -612,7 +614,7 @@
 
         if (this.initialDate) {
           // this.selectedDay = date.getDate() + 1
-          this.selectedDay = date.getDate() 
+          this.selectedDay = date.getDate()
         } else {
           this.selectedDay = date.getDate()
         }
@@ -700,6 +702,14 @@
         this.hideBodyOverflow(false)
 
         this.$emit('close')
+      },
+      /**
+       * Allow user to clear the date input
+      */
+      clearDate () {
+        this.date = ''
+        this.$emit('input', this.date)
+        this.$emit('close', '')
       }
     }
   }
